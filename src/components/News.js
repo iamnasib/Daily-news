@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Newsitem from "./Newsitem";
 import Skeleton from "./Skeleton";
 import PropTypes from "prop-types";
@@ -10,7 +10,7 @@ const News = (props) => {
   // document.title = `Daily News - ${props.category}`;
   const [totalResults, setTotalResults] = useState(0);
 
-  const getData = async () => {
+  const getData = async (page) => {
     let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&
     category=${props.category}&apiKey=${props.apiKey}&page=${page}&pageSize=15`;
     let data = await fetch(url);
@@ -24,11 +24,15 @@ const News = (props) => {
       await getData();
     };
     fetchData();
-  }, []); // The empty dependency array ensures this runs only once after the initial render
+  }, []); // eslint-disable-line
+  //  The empty dependency array ensures this runs only once after the initial render
 
   const fetchMoreData = async () => {
     setPage(page + 1);
-    await getData();
+    setPage((prevPage) => {
+      const newPage = prevPage + 1;
+      getData(newPage);
+    });
   };
 
   // handlePaginationClick = async (nxt) => {
