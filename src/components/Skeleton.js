@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 
-export default class Skeleton extends Component {
-  render() {
-    return (
+const Skeleton = () => {
+  return (
+    <>
       <div
         role="status"
         className="flex flex-col max-w-sm animate-pulse space-y-2  md:items-center">
@@ -26,6 +26,8 @@ export default class Skeleton extends Component {
         </div>
         <span className="sr-only">Loading...</span>
       </div>
-    );
-  }
-}
+    </>
+  );
+};
+
+export default Skeleton;
